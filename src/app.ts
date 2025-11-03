@@ -1,16 +1,19 @@
 import cors from 'cors';
+import http from 'http';
 import express, { Application, Request, Response } from 'express';
 import globalRoutes from './app/routes';
 import globalErrorHandler from './app/middlewares/globalErrorHandlers';
-import cookieParser from "cookie-parser";
+import cookieParser from 'cookie-parser';
+import { createServer } from 'node:http';
 
 const app: Application = express();
+const server = createServer(app);
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
+    origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
     credentials: true,
   }),
 );
@@ -24,4 +27,4 @@ app.get('/', (_: Request, res: Response) => {
 
 app.use(globalErrorHandler);
 
-export default app;
+export default server;
