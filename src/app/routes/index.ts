@@ -1,6 +1,7 @@
 import express from 'express';
 import userRoutes from '../modules/user/user.route';
 import antennaRoutes from '../modules/antenna/antenna.route';
+import contentRoutes from '../modules/content/content.route';
 
 const globalRoutes = express.Router();
 
@@ -12,6 +13,10 @@ const routes = [
   {
     path: '/antenna',
     element: antennaRoutes,
+  },
+  {
+    path: '/content',
+    element: contentRoutes,
   },
   // Test Routes
 ];

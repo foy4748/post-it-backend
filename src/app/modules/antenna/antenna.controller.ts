@@ -8,6 +8,7 @@ export const io = new socketIo.Server(server, {
     origin: 'http://localhost:3000',
     methods: ['GET', 'POST'],
   },
+  transports: ['websocket', 'polling'],
 });
 
 // Store connected users (optional)
@@ -63,6 +64,8 @@ export const CnotificationSend = catchAsyncError((req, res) => {
   io.to(userId)
     .to(`notifications-${userId}`)
     .emit('notification', notification);
+
+  io.emit('notification', notification);
 
   // Also broadcast to all connected clients (optional)
   // io.emit('notification', notification);
