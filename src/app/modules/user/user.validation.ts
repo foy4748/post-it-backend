@@ -7,11 +7,12 @@ const userValidationSchema = z.object({
     .string()
     .min(8, 'Minimum 8 character long password is required')
     .max(16, 'Maximum 16 character is allowed for password.'),
-  role: z.enum(['user', 'admin']),
+  role: z.enum(['user', 'admin']).optional().default('user'),
+  picture: z.string().url().optional(),
 });
 
 export const userLoginValidationSchema = z.object({
-  username: z.string().nonempty('Username cannot be empty'),
+  email: z.string().email().nonempty('Email cannot be empty'),
   password: z
     .string()
     .min(8, 'Minimum 8 character long password is required')

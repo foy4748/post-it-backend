@@ -4,36 +4,41 @@ import bcrypt from 'bcryptjs';
 
 export type TuserRole = 'user' | 'admin';
 
+export interface ILoginUser {
+  email: string;
+  password: string;
+}
+
 export interface IUser extends Document {
   username: string;
   email: string;
   password: string;
-  avatar?: string;
+  picture?: string;
   role: 'user' | 'moderator' | 'admin';
-  profile: {
-    bio?: string;
-    website?: string;
-    location?: string;
-    socialLinks: {
-      twitter?: string;
-      github?: string;
-      linkedin?: string;
-    };
-  };
-  preferences: {
-    emailNotifications: boolean;
-    pushNotifications: boolean;
-    theme: 'light' | 'dark' | 'auto';
-  };
-  stats: {
-    threadCount: number;
-    postCount: number;
-    reputation: number;
-    joinedAt: Date;
-    lastActive: Date;
-  };
-  isActive: boolean;
-  isVerified: boolean;
+  // profile: {
+  //   bio?: string;
+  //   website?: string;
+  //   location?: string;
+  //   socialLinks: {
+  //     twitter?: string;
+  //     github?: string;
+  //     linkedin?: string;
+  //   };
+  // };
+  // preferences: {
+  //   emailNotifications: boolean;
+  //   pushNotifications: boolean;
+  //   theme: 'light' | 'dark' | 'auto';
+  // };
+  // stats: {
+  //   threadCount: number;
+  //   postCount: number;
+  //   reputation: number;
+  //   joinedAt: Date;
+  //   lastActive: Date;
+  // };
+  // isActive: boolean;
+  // isVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
 
@@ -66,7 +71,7 @@ const userSchema = new Schema<IUser>(
       required: [true, 'Password is required'],
       minlength: [6, 'Password must be at least 6 characters'],
     },
-    avatar: {
+    picture: {
       type: String,
       default: null,
     },
@@ -75,34 +80,34 @@ const userSchema = new Schema<IUser>(
       enum: ['user', 'moderator', 'admin'],
       default: 'user',
     },
-    profile: {
-      bio: {
-        type: String,
-        maxlength: [500, 'Bio cannot exceed 500 characters'],
-        default: '',
-      },
-      website: String,
-      location: String,
-      socialLinks: {
-        twitter: String,
-        github: String,
-        linkedin: String,
-      },
-    },
-    preferences: {
-      emailNotifications: { type: Boolean, default: true },
-      pushNotifications: { type: Boolean, default: true },
-      theme: { type: String, enum: ['light', 'dark', 'auto'], default: 'auto' },
-    },
-    stats: {
-      threadCount: { type: Number, default: 0 },
-      postCount: { type: Number, default: 0 },
-      reputation: { type: Number, default: 0 },
-      joinedAt: { type: Date, default: Date.now },
-      lastActive: { type: Date, default: Date.now },
-    },
-    isActive: { type: Boolean, default: true },
-    isVerified: { type: Boolean, default: false },
+    // profile: {
+    //   bio: {
+    //     type: String,
+    //     maxlength: [500, 'Bio cannot exceed 500 characters'],
+    //     default: '',
+    //   },
+    //   website: String,
+    //   location: String,
+    //   socialLinks: {
+    //     twitter: String,
+    //     github: String,
+    //     linkedin: String,
+    //   },
+    // },
+    // preferences: {
+    //   emailNotifications: { type: Boolean, default: true },
+    //   pushNotifications: { type: Boolean, default: true },
+    //   theme: { type: String, enum: ['light', 'dark', 'auto'], default: 'auto' },
+    // },
+    // stats: {
+    //   threadCount: { type: Number, default: 0 },
+    //   postCount: { type: Number, default: 0 },
+    //   reputation: { type: Number, default: 0 },
+    //   joinedAt: { type: Date, default: Date.now },
+    //   lastActive: { type: Date, default: Date.now },
+    // },
+    // isActive: { type: Boolean, default: true },
+    // isVerified: { type: Boolean, default: false },
   },
   {
     timestamps: true,
