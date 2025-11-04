@@ -1,16 +1,15 @@
 import express from 'express';
 import validateRequest from '../../middlewares/validateRequests';
-import { threadValidationSchema } from './thread.validation';
-import { CcreateThread, CgetThreads } from './thread.controller';
+import { postValidationSchema } from './post.validation';
+import { CcreatePost } from './post.controller';
 import authentication from '../../middlewares/authentication';
 const router = express.Router();
 
 router.post(
-  '/',
-  validateRequest(threadValidationSchema),
+  '/:threadId',
+  validateRequest(postValidationSchema),
   authentication(),
-  CcreateThread,
+  CcreatePost,
 );
 
-router.get('/', CgetThreads);
 export default router;

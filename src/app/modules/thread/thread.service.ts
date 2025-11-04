@@ -10,3 +10,8 @@ export const ScreateThread = async (
   const result = await Thread.create(newThread);
   return result;
 };
+
+export const SgetThreads = async () => {
+  const threads = await Thread.find();
+  return threads;
+};

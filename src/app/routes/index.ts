@@ -3,6 +3,7 @@ import userRoutes from '../modules/user/user.route';
 import antennaRoutes from '../modules/antenna/antenna.route';
 import contentRoutes from '../modules/content/content.route';
 import threadRoutes from '../modules/thread/thread.route';
+import postRoutes from '../modules/post/post.route';
 
 const globalRoutes = express.Router();
 
@@ -18,6 +19,10 @@ const routes = [
   {
     path: '/thread',
     element: threadRoutes,
+  },
+  {
+    path: '/post',
+    element: postRoutes,
   },
   {
     path: '/content',
