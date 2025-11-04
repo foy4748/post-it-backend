@@ -11,3 +11,8 @@ export const ScreatePost = async (
   const result = await Post.create(newPost);
   return result;
 };
+
+export const SgetPosts = async (threadId: string) => {
+  const result = await Post.find({ thread: threadId });
+  return result;
+};
