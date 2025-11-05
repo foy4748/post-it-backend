@@ -4,6 +4,7 @@ import antennaRoutes from '../modules/antenna/antenna.route';
 import contentRoutes from '../modules/content/content.route';
 import threadRoutes from '../modules/thread/thread.route';
 import postRoutes from '../modules/post/post.route';
+import commentRoutes from '../modules/comment/comment.route';
 
 const globalRoutes = express.Router();
 
@@ -23,6 +24,10 @@ const routes = [
   {
     path: '/post',
     element: postRoutes,
+  },
+  {
+    path: '/comment',
+    element: commentRoutes,
   },
   {
     path: '/content',

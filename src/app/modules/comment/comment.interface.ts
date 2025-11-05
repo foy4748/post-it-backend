@@ -1,5 +1,10 @@
 import { Document, Types } from 'mongoose';
 
+export type TCommentPayload = {
+  content: string;
+  parentComment?: Types.ObjectId | null;
+};
+
 // Interface for Comment document
 export interface IComment extends Document {
   content: string;
