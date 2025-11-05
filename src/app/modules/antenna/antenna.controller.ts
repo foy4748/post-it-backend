@@ -1,46 +1,35 @@
-import socketIo from 'socket.io';
-import server from '../../../app';
 import catchAsyncError from '../../utils/catchAsyncError';
 
-// Socket.IO setup with CORS for Next.js frontend
-export const io = new socketIo.Server(server, {
-  cors: {
-    origin: 'http://localhost:3000',
-    methods: ['GET', 'POST'],
-  },
-  transports: ['websocket', 'polling'],
-});
-
 // Store connected users (optional)
-const connectedUsers = new Map();
+// const connectedUsers = new Map();
 
 // Socket.IO connection handling
-io.on('connection', (socket) => {
-  console.log('🔗 User connected:', socket.id);
+// global.io.on('connection', (socket) => {
+//   console.log('🔗 User connected:', socket.id);
 
-  // Join user to a specific room (e.g., user ID)
-  socket.on('join-user', (userId) => {
-    socket.join(userId);
-    connectedUsers.set(socket.id, userId);
-    console.log(`User ${userId} joined room`);
-  });
+//   // Join user to a specific room (e.g., user ID)
+//   socket.on('join-user', (userId) => {
+//     socket.join(userId);
+//     connectedUsers.set(socket.id, userId);
+//     console.log(`User ${userId} joined room`);
+//   });
 
-  // Join user to a notification room
-  socket.on('join-notifications', (userId) => {
-    socket.join(`notifications-${userId}`);
-  });
+//   // Join user to a notification room
+//   socket.on('join-notifications', (userId) => {
+//     socket.join(`notifications-${userId}`);
+//   });
 
-  // Handle disconnect
-  socket.on('disconnect', () => {
-    console.log('❌ User disconnected:', socket.id);
-    connectedUsers.delete(socket.id);
-  });
+//   // Handle disconnect
+//   socket.on('disconnect', () => {
+//     console.log('❌ User disconnected:', socket.id);
+//     connectedUsers.delete(socket.id);
+//   });
 
-  // Handle client errors
-  socket.on('error', (error) => {
-    console.error('Socket error:', error);
-  });
-});
+//   // Handle client errors
+//   socket.on('error', (error) => {
+//     console.error('Socket error:', error);
+//   });
+// });
 
 export const CnotificationSend = catchAsyncError((req, res) => {
   const { userId, title, message, type = 'info', data = {} } = req.body;
@@ -61,19 +50,20 @@ export const CnotificationSend = catchAsyncError((req, res) => {
   };
 
   // Send to specific user room
-  io.to(userId)
+  global.io
+    .to(userId)
     .to(`notifications-${userId}`)
     .emit('notification', notification);
 
-  io.emit('notification', notification);
+  global.io.emit('notification', notification);
 
   // Also broadcast to all connected clients (optional)
   // io.emit('notification', notification);
 
-  console.log(
-    `📨 Notification sent to user ${userId} at ${Date().toString()}:`,
-    title,
-  );
+  // console.log(
+  //   `📨 Notification sent to user ${userId} at ${Date().toString()}:`,
+  //   title,
+  // );
 
   res.json({
     success: true,
@@ -96,8 +86,9 @@ export const CnotificationBroadCast = catchAsyncError((req, res) => {
   };
 
   // Send to multiple users
-  userIds.forEach((userId) => {
-    io.to(userId)
+  userIds.forEach((userId: string) => {
+    global.io
+      .to(userId)
       .to(`notifications-${userId}`)
       .emit('notification', notification);
   });
