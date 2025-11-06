@@ -11,8 +11,8 @@ const router = express.Router();
 
 router.post(
   '/:postId',
-  validateRequest(commentValidationSchema),
   authentication(),
+  validateRequest(commentValidationSchema),
   CcreateComment,
 );
 
