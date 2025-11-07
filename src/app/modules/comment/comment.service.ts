@@ -11,8 +11,8 @@ export const ScreateComment = async (
   const eventName = payload?.parentComment
     ? `new-comment-${postId}-${payload?.parentComment}`
     : `new-comment-${postId}`;
-  global.io.emit(eventName, newComment);
   const result = await Comment.create(newComment);
+  global.io.emit(eventName, result.toObject());
   return result;
 };
 
