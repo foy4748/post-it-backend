@@ -12,5 +12,13 @@ export const threadValidationSchema = z.object({
     .min(10, 'Thread content must be at least 10 characters')
     .max(10000, 'Thread content cannot exceed 10000 characters'),
 
-  // category: z.string().regex(/^[a-fA-F0-9]{24}$/, 'Invalid category ID format'), // ObjectId validation
+  category: z.string().regex(/^[a-fA-F0-9]{24}$/, 'Invalid category ID format'), // ObjectId validation
+});
+
+export const threadCategoryValidationSchema = z.object({
+  category: z
+    .string()
+    .trim()
+    .min(3, 'Thread category must be at least 3 characters')
+    .max(80, 'Thread category name cannot exceed 80 characters'),
 });

@@ -1,6 +1,16 @@
 // models/Thread.ts
 import { Schema, model } from 'mongoose';
-import { IThread } from './thread.interface';
+import { IThread, IThreadCategory } from './thread.interface';
+
+const threadCategorySchema = new Schema<IThreadCategory>({
+  category: {
+    type: String,
+    required: [true, 'Category is required'],
+    trim: true,
+    minlength: [3, 'Thread category name must be at least 3 characters'],
+    maxlength: [80, 'Thread category name cannot exceed 80 characters'],
+  },
+});
 
 const threadSchema = new Schema<IThread>(
   {
@@ -22,11 +32,11 @@ const threadSchema = new Schema<IThread>(
       ref: 'User',
       required: true,
     },
-    // category: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'Category',
-    //   required: true,
-    // },
+    category: {
+      type: Schema.Types.ObjectId,
+      ref: 'ThreadCategory',
+      required: true,
+    },
     // tags: [
     //   {
     //     type: String,
@@ -57,4 +67,8 @@ const threadSchema = new Schema<IThread>(
   },
 );
 
+export const ThreadCategory = model<IThreadCategory>(
+  'ThreadCategory',
+  threadCategorySchema,
+);
 export const Thread = model<IThread>('Thread', threadSchema);

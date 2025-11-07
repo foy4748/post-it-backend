@@ -1,6 +1,13 @@
 import { JwtPayload } from 'jsonwebtoken';
-import { TThreadPayload } from './thread.interface';
-import { Thread } from './thread.model';
+import { TThreadCategoryPayload, TThreadPayload } from './thread.interface';
+import { Thread, ThreadCategory } from './thread.model';
+
+export const ScreateThreadCategory = async (
+  payload: TThreadCategoryPayload,
+) => {
+  const result = await ThreadCategory.create(payload);
+  return result;
+};
 
 export const ScreateThread = async (
   payload: TThreadPayload,
@@ -13,6 +20,11 @@ export const ScreateThread = async (
 };
 
 export const SgetThreads = async () => {
-  const threads = await Thread.find();
+  const threads = await Thread.find().populate('author');
   return threads;
+};
+
+export const SgetThreadCategories = async () => {
+  const threadCategories = await ThreadCategory.find();
+  return threadCategories;
 };

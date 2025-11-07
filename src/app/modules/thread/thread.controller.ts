@@ -1,5 +1,10 @@
 import catchAsyncError from '../../utils/catchAsyncError';
-import { ScreateThread, SgetThreads } from './thread.service';
+import {
+  ScreateThread,
+  ScreateThreadCategory,
+  SgetThreadCategories,
+  SgetThreads,
+} from './thread.service';
 
 export const CcreateThread = catchAsyncError(async (req, res) => {
   const { body, decoded } = req;
@@ -7,7 +12,18 @@ export const CcreateThread = catchAsyncError(async (req, res) => {
   return res.send(result);
 });
 
-export const CgetThreads = catchAsyncError(async (req, res) => {
+export const CcreateThreadCategory = catchAsyncError(async (req, res) => {
+  const { body } = req;
+  const result = await ScreateThreadCategory(body);
+  return res.send(result);
+});
+
+export const CgetThreads = catchAsyncError(async (_, res) => {
   const result = await SgetThreads();
+  return res.send(result);
+});
+
+export const CgetThreadCategories = catchAsyncError(async (_, res) => {
+  const result = await SgetThreadCategories();
   return res.send(result);
 });
