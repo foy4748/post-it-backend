@@ -8,6 +8,10 @@ export const ScreateComment = async (
   postId: string,
 ) => {
   const newComment = { ...payload, user: decoded._id, post: postId };
+  const eventName = payload?.parentComment
+    ? `new-comment-${postId}-${payload?.parentComment}`
+    : `new-comment-${postId}`;
+  global.io.emit(eventName, newComment);
   const result = await Comment.create(newComment);
   return result;
 };
