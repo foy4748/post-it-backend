@@ -13,7 +13,10 @@ export const ScreateComment = async (
 };
 
 export const SgetComments = async (postId: string) => {
-  const result = await Comment.find({ post: postId, parentComment: null });
+  const result = await Comment.find({
+    post: postId,
+    parentComment: null,
+  }).populate('user');
 
   return result;
 };
@@ -22,7 +25,9 @@ export const SgetNestedComments = async (
   postId: string,
   parentComment: string,
 ) => {
-  const result = await Comment.find({ post: postId, parentComment });
+  const result = await Comment.find({ post: postId, parentComment }).populate(
+    'user',
+  );
 
   return result;
 };
