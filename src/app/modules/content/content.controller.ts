@@ -2,6 +2,7 @@ import config from '../../config';
 import catchAsyncError from '../../utils/catchAsyncError';
 import { GoogleGenAI } from '@google/genai';
 import { Thread } from '../thread/thread.model';
+import { redisClient } from '../../utils/redisClient';
 
 export const CSummarize = catchAsyncError(async (req, res) => {
   const apiKey = config.gemini_key;
@@ -34,11 +35,17 @@ export const CSummarize = catchAsyncError(async (req, res) => {
     // This is a more direct way to get model's analysis
     // You would typically process the text to parse the JSON and return it
 
-    return res.send(
-      String(response.text).replace('```json', '').replace('```', ''),
-    );
+    const result = String(response.text)
+      .replace('```json', '')
+      .replace('```', '');
+
+    const jsonResult: { summary: string } = JSON.parse(result);
+    // await redisClient.connect();
+    redisClient.set(id, jsonResult.summary);
+
+    return res.send(result);
   } catch (error) {
-    // console.error('Gemini API error:', error);
+    console.error('Gemini API error:', error);
     return res.status(500).json({ error: 'Failed to summarize.' });
   }
 });
