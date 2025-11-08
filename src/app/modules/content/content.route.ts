@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import { CmoderatePost } from './content.controller';
+import { CSummarize, CmoderatePost } from './content.controller';
 const router = Router();
 
 //  Check Content
+router.get('/summarize/:id', CSummarize);
 router.post('/', CmoderatePost);
 
 export default router;

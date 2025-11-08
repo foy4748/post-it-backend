@@ -1,5 +1,4 @@
 import cors from 'cors';
-import http from 'http';
 import express, { Application, Request, Response } from 'express';
 import globalRoutes from './app/routes';
 import globalErrorHandler from './app/middlewares/globalErrorHandlers';

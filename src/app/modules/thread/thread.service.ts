@@ -20,7 +20,15 @@ export const ScreateThread = async (
 };
 
 export const SgetThreads = async () => {
-  const threads = await Thread.find().populate('author');
+  const threads = await Thread.find().populate(['author', 'category']);
+  return threads;
+};
+
+export const SgetSingleThread = async (threadId: string) => {
+  const threads = await Thread.findOne({ _id: threadId }).populate([
+    'author',
+    'category',
+  ]);
   return threads;
 };
 
