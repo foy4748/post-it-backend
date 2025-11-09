@@ -42,3 +42,9 @@ export const SgetThreadCategories = async () => {
   const threadCategories = await ThreadCategory.find();
   return threadCategories;
 };
+
+export const SdeleteSingleThread = async (threadId: string) => {
+  const result = await Thread.deleteOne({ _id: threadId });
+  global.io.emit(`delete-thread-${threadId}`, result);
+  return result;
+};

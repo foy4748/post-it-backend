@@ -7,6 +7,7 @@ import {
   SgetThreadCategories,
   SgetThreads,
   SgetSingleThread,
+  SdeleteSingleThread,
 } from './thread.service';
 
 export const CcreateThread = catchAsyncError(async (req, res) => {
@@ -41,5 +42,11 @@ export const CgetSingleThread = catchAsyncError(async (req, res) => {
 
 export const CgetThreadCategories = catchAsyncError(async (_, res) => {
   const result = await SgetThreadCategories();
+  return res.send(result);
+});
+
+export const CdeleteSingleThread = catchAsyncError(async (req, res) => {
+  const threadId: string = req.params.threadId;
+  const result = await SdeleteSingleThread(threadId);
   return res.send(result);
 });

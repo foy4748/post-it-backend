@@ -7,6 +7,7 @@ import {
 import {
   CcreateThread,
   CcreateThreadCategory,
+  CdeleteSingleThread,
   CgetSingleThread,
   CgetThreadCategories,
   CgetThreads,
@@ -31,4 +32,7 @@ router.post(
 router.get('/category', CgetThreadCategories);
 router.get('/', CgetThreads);
 router.get('/:threadId', CgetSingleThread);
+
+router.delete('/:threadId', CdeleteSingleThread);
+
 export default router;
