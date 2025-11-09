@@ -15,9 +15,9 @@ export const contentExplicitValidationAI = async (postContent: string) => {
 
     // Define a clear instruction for the model
     const prompt = `
-            Analyze the following text for inappropriate content. Return a JSON response with:
+            Analyze the following text for inappropriate , spam or jibberish content. Return a JSON response with:
             - is_safe: boolean (true if safe, false if unsafe)
-            - categories: array of violated categories (hate_speech, harassment, explicit, violence, self_harm, spam, none)
+            - categories: array of violated categories (hate_speech, harassment, explicit, violence, self_harm, spam, jibberish, none)
             - confidence: number between 0-1
             - reasons: array of specific reasons for moderation
             - severity: "low", "medium", "high", or "none"
