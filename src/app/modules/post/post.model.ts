@@ -21,7 +21,12 @@ const postSchema = new Schema<IPost>(
       ref: 'Thread',
       required: true,
     },
+    isFlagged: {
+      type: Schema.Types.Boolean,
+      default: false,
+    },
   },
+
   {
     timestamps: true,
   },

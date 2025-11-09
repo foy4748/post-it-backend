@@ -9,3 +9,12 @@ export const redisClient = createClient({
     port: Number(config.redisPort),
   },
 });
+
+export const redisForBull = {
+  redis: {
+    username: config.redisUser,
+    password: config.redisPassword,
+    host: config.redisHost,
+    port: Number(config.redisPort),
+  },
+};

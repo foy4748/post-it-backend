@@ -6,6 +6,7 @@ export interface IPost extends Document {
   content: string;
   author: Types.ObjectId;
   thread: Types.ObjectId;
+  isFlagged?: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
