@@ -43,6 +43,6 @@ export const SdeleteSingleComment = async (commentId: string) => {
     _id: commentId,
   });
 
-  global.io.emit(`delete-comment-${commentId}`, result);
+  global.io.emit(`delete-comment`, result);
   return result;
 };

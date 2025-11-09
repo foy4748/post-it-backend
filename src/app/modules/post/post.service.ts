@@ -31,6 +31,6 @@ export const SgetSinglePost = async (postId: string) => {
 
 export const SdeleteSinglePost = async (postId: string) => {
   const result = await Post.deleteOne({ _id: postId });
-  global.io.emit(`delete-post-${postId}`);
+  global.io.emit(`delete-post`);
   return result;
 };
