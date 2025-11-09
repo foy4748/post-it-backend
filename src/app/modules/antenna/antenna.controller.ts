@@ -1,34 +1,6 @@
+import { connectedUsers } from '../../../app';
 import catchAsyncError from '../../utils/catchAsyncError';
 
-// Store connected users (optional)
-// const connectedUsers = new Map();
-
-// Socket.IO connection handling
-// global.io.on('connection', (socket) => {
-//   console.log('🔗 User connected:', socket.id);
-
-//   // Join user to a specific room (e.g., user ID)
-//   socket.on('join-user', (userId) => {
-//     socket.join(userId);
-//     connectedUsers.set(socket.id, userId);
-//     console.log(`User ${userId} joined room`);
-//   });
-
-//   // Join user to a notification room
-//   socket.on('join-notifications', (userId) => {
-//     socket.join(`notifications-${userId}`);
-//   });
-
-//   // Handle disconnect
-//   socket.on('disconnect', () => {
-//     console.log('❌ User disconnected:', socket.id);
-//     connectedUsers.delete(socket.id);
-//   });
-
-//   // Handle client errors
-//   socket.on('error', (error) => {
-//     console.error('Socket error:', error);
-//   });
 // });
 
 export const CnotificationSend = catchAsyncError((req, res) => {

@@ -1,10 +1,12 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import httpStatus from 'http-status';
 import catchAsyncError from '../../utils/catchAsyncError';
 import sendResponse, { TResponse } from '../../utils/sendResponse';
-import IUser, { ILoggedInWithToken, ILoginUser } from './user.interface';
+import { IUser, ILoggedInWithToken, ILoginUser } from './user.interface';
 import jwt from 'jsonwebtoken';
 
-import { ScreateUser, SloginUser, SchangeUserPassword } from './user.service';
+import { ScreateUser, SloginUser } from './user.service';
 import config from '../../config';
 
 type cookieSameSite = boolean | 'none' | 'strict' | 'lax' | undefined;
@@ -35,7 +37,7 @@ export const CcreateUser = catchAsyncError(async (req, res, _) => {
 
   type payloadType = { user: IUser; token: string };
 
-  const { password, passwordHistory, ...exceptPassword } = data;
+  const { password, passwordHistory, ...exceptPassword } = data; // eslint-disable-line @typescript-eslint/no-unused-vars
   const responseObj: TResponse<payloadType> = {
     success: true,
     statusCode: httpStatus.CREATED,

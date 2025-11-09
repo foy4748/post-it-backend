@@ -19,7 +19,7 @@ const io = new Server(server, {
 
 global.io = io;
 // Socket.IO connection handling
-const connectedUsers = new Map();
+export const connectedUsers = new Map();
 io.on('connection', (socket) => {
   console.log('🔗 User connected:', socket.id);
 
