@@ -1,4 +1,5 @@
 import catchAsyncError from '../../utils/catchAsyncError';
+import threadCreationQueue from './thread.queue';
 import {
   ScreateThread,
   ScreateThreadCategory,
@@ -10,6 +11,7 @@ import {
 export const CcreateThread = catchAsyncError(async (req, res) => {
   const { body, decoded } = req;
   const result = await ScreateThread(body, decoded);
+  await threadCreationQueue.add(result);
   return res.send(result);
 });
 

@@ -37,30 +37,10 @@ const threadSchema = new Schema<IThread>(
       ref: 'ThreadCategory',
       required: true,
     },
-    // tags: [
-    //   {
-    //     type: String,
-    //     trim: true,
-    //     lowercase: true,
-    //     maxlength: [20, 'Tag cannot exceed 20 characters'],
-    //   },
-    // ],
-    // status: {
-    //   type: String,
-    //   enum: ['active', 'closed', 'archived', 'flagged'],
-    //   default: 'active',
-    // },
-    // visibility: {
-    //   type: String,
-    //   enum: ['public', 'private', 'members_only'],
-    //   default: 'public',
-    // },
-    // viewCount: { type: Number, default: 0 },
-    // postCount: { type: Number, default: 0 },
-    // isPinned: { type: Boolean, default: false },
-    // isLocked: { type: Boolean, default: false },
-    // lastActivityAt: { type: Date, default: Date.now },
-    // featuredImage: String,
+    isFlagged: {
+      type: Schema.Types.Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

@@ -1,6 +1,7 @@
 import { JwtPayload } from 'jsonwebtoken';
 import { TThreadCategoryPayload, TThreadPayload } from './thread.interface';
 import { Thread, ThreadCategory } from './thread.model';
+import threadCreationQueue from './thread.queue';
 
 export const ScreateThreadCategory = async (
   payload: TThreadCategoryPayload,
@@ -15,6 +16,7 @@ export const ScreateThread = async (
 ) => {
   const newThread = { ...payload, author: decoded._id };
   const result = await Thread.create(newThread);
+  await threadCreationQueue.add(result);
   global.io.emit('new-thread', result);
   return result;
 };

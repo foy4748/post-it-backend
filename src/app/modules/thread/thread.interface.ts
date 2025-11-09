@@ -19,18 +19,7 @@ export interface IThread extends Document {
   content: string;
   author: Types.ObjectId;
   category: Types.ObjectId;
-  // tags: string[];
-  // status: 'active' | 'closed' | 'archived' | 'flagged';
-  // visibility: 'public' | 'private' | 'members_only';
-  // viewCount: number;
-  // postCount: number;
-  // isPinned: boolean;
-  // isLocked: boolean;
-  // lastActivityAt: Date;
-  // featuredImage?: string;
-  // moderation: IModerationResult;
-  // participants: Types.ObjectId[]; // Users who participated in the thread
-  // followers: Types.ObjectId[]; // Users following this thread
+  isFlagged: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

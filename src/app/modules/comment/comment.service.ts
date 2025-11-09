@@ -1,7 +1,7 @@
 import { JwtPayload } from 'jsonwebtoken';
 import { TCommentPayload } from './comment.interface';
 import { Comment } from './comment.model';
-import commentCreationQueue from './comment.validation';
+import commentCreationQueue from './comment.queue';
 
 export const ScreateComment = async (
   payload: TCommentPayload,
