@@ -1,6 +1,7 @@
 import catchAsyncError from '../../utils/catchAsyncError';
 import {
   ScreateComment,
+  SdeleteSingleComment,
   SgetComments,
   SgetNestedComments,
 } from './comment.service';
@@ -22,5 +23,11 @@ export const CgetNestedComments = catchAsyncError(async (req, res) => {
   const postId = req.params.postId;
   const parentCommentId = req.params.parentComment;
   const result = await SgetNestedComments(postId, parentCommentId);
+  return res.send(result);
+});
+
+export const CdeleteSingleComment = catchAsyncError(async (req, res) => {
+  const commentId = req.params.commentId;
+  const result = await SdeleteSingleComment(commentId);
   return res.send(result);
 });

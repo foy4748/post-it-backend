@@ -3,6 +3,7 @@ import validateRequest from '../../middlewares/validateRequests';
 import { commentValidationSchema } from './comment.validation';
 import {
   CcreateComment,
+  CdeleteSingleComment,
   CgetComments,
   CgetNestedComments,
 } from './comment.controller';
@@ -18,4 +19,6 @@ router.post(
 
 router.get('/:postId', CgetComments);
 router.get('/:postId/:parentComment', CgetNestedComments);
+
+router.delete('/:commentId', authentication(), CdeleteSingleComment);
 export default router;

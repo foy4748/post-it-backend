@@ -37,3 +37,12 @@ export const SgetNestedComments = async (
 
   return result;
 };
+
+export const SdeleteSingleComment = async (commentId: string) => {
+  const result = await Comment.deleteOne({
+    _id: commentId,
+  });
+
+  global.io.emit(`delete-comment-${commentId}`, result);
+  return result;
+};

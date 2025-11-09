@@ -20,3 +20,17 @@ export const SgetPosts = async (threadId: string) => {
   const result = await Post.find({ thread: threadId }).populate('author');
   return result;
 };
+
+export const SgetSinglePost = async (postId: string) => {
+  const post = await Post.findOne({ _id: postId }).populate([
+    'author',
+    'category',
+  ]);
+  return post;
+};
+
+export const SdeleteSinglePost = async (postId: string) => {
+  const result = await Post.deleteOne({ _id: postId });
+  global.io.emit(`delete-post-${postId}`);
+  return result;
+};

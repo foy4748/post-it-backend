@@ -33,6 +33,6 @@ router.get('/category', CgetThreadCategories);
 router.get('/', CgetThreads);
 router.get('/:threadId', CgetSingleThread);
 
-router.delete('/:threadId', CdeleteSingleThread);
+router.delete('/:threadId', authentication(), CdeleteSingleThread);
 
 export default router;
