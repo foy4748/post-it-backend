@@ -1,5 +1,10 @@
 import { Document, Types } from 'mongoose';
 
+export type TThreadQuery = {
+  category?: string;
+  searchTerm?: string;
+};
+
 export type TThreadPayload = {
   title: string;
   content: string;

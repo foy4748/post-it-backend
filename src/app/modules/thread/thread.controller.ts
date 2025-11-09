@@ -1,4 +1,5 @@
 import catchAsyncError from '../../utils/catchAsyncError';
+import { TThreadQuery } from './thread.interface';
 import threadCreationQueue from './thread.queue';
 import {
   ScreateThread,
@@ -21,8 +22,14 @@ export const CcreateThreadCategory = catchAsyncError(async (req, res) => {
   return res.send(result);
 });
 
-export const CgetThreads = catchAsyncError(async (_, res) => {
-  const result = await SgetThreads();
+export const CgetThreads = catchAsyncError(async (req, res) => {
+  const { category, searchTerm } = req.query;
+  const query: TThreadQuery = {};
+  if (category && category?.length == 24) query['category'] = String(category);
+  console.log(query);
+  if (searchTerm) query['searchTerm'] = String(searchTerm);
+
+  const result = await SgetThreads(query);
   return res.send(result);
 });
 
