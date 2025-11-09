@@ -21,6 +21,10 @@ const CommentSchema = new Schema<IComment>({
     ref: 'Comment', // Self-reference for nested comments
     default: null, // Top-level comments have no parent
   },
+  isFlagged: {
+    type: Schema.Types.Boolean,
+    default: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

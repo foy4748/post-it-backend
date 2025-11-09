@@ -10,6 +10,7 @@ export interface IComment extends Document {
   content: string;
   user: Types.ObjectId;
   post: Types.ObjectId;
+  isFlagged?: boolean;
   parentComment?: Types.ObjectId | null;
   createdAt: Date;
 }

@@ -1,6 +1,7 @@
 import { JwtPayload } from 'jsonwebtoken';
 import { TCommentPayload } from './comment.interface';
 import { Comment } from './comment.model';
+import commentCreationQueue from './comment.validation';
 
 export const ScreateComment = async (
   payload: TCommentPayload,
@@ -12,6 +13,7 @@ export const ScreateComment = async (
     ? `new-comment-${postId}-${payload?.parentComment}`
     : `new-comment-${postId}`;
   const result = await Comment.create(newComment);
+  await commentCreationQueue.add(result);
   global.io.emit(eventName, result.toObject());
   return result;
 };
