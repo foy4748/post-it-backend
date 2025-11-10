@@ -8,12 +8,27 @@ import { Server } from 'socket.io';
 import config from './app/config';
 
 const app: Application = express();
+
+app.use(express.json());
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: [
+      'http://localhost:3000',
+      'http://127.0.0.1:3000',
+      String(process.env.frontendLink),
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    credentials: true,
+  }),
+);
+
 const server = createServer(app);
 // Socket.IO setup with CORS for Next.js frontend
 const io = new Server(server, {
   cors: {
     origin: ['http://localhost:3000', String(config.frontendLink)],
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   },
   transports: ['websocket', 'polling'],
 });
@@ -47,19 +62,6 @@ io.on('connection', (socket) => {
     console.error('Socket error:', error);
   });
 });
-
-app.use(express.json());
-app.use(cookieParser());
-app.use(
-  cors({
-    origin: [
-      'http://localhost:3000',
-      'http://127.0.0.1:3000',
-      String(process.env.frontendLink),
-    ],
-    credentials: true,
-  }),
-);
 
 // App Routes
 app.use('/api', globalRoutes);
