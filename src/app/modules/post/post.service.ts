@@ -12,7 +12,7 @@ export const ScreatePost = async (
   const result = await Post.create(newPost);
 
   await postCreationQueue.add(result);
-  global.io.emit(`new-post-${threadId}`);
+  global.io.emit(`new-post-${threadId}`, result.toObject());
   return result;
 };
 

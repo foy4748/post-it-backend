@@ -21,7 +21,7 @@ export const ScreateThread = async (
   const newThread = { ...payload, author: decoded._id };
   const result = await Thread.create(newThread);
   await threadCreationQueue.add(result);
-  global.io.emit('new-thread', result);
+  global.io.emit('new-thread', result.toObject());
   return result;
 };
 
