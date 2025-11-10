@@ -19,7 +19,7 @@ app.use((0, cors_1.default)({
     origin: [
         'http://localhost:3000',
         'http://127.0.0.1:3000',
-        String(process.env.frontendLink),
+        String(config_1.default.frontendLink),
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
