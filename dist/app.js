@@ -11,13 +11,25 @@ const globalErrorHandlers_1 = __importDefault(require("./app/middlewares/globalE
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const node_http_1 = require("node:http");
 const socket_io_1 = require("socket.io");
+const config_1 = __importDefault(require("./app/config"));
 const app = (0, express_1.default)();
+app.use(express_1.default.json());
+app.use((0, cookie_parser_1.default)());
+app.use((0, cors_1.default)({
+    origin: [
+        'http://localhost:3000',
+        'http://127.0.0.1:3000',
+        String(process.env.frontendLink),
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    credentials: true,
+}));
 const server = (0, node_http_1.createServer)(app);
 // Socket.IO setup with CORS for Next.js frontend
 const io = new socket_io_1.Server(server, {
     cors: {
-        origin: 'http://localhost:3000',
-        methods: ['GET', 'POST'],
+        origin: ['http://localhost:3000', String(config_1.default.frontendLink)],
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     },
     transports: ['websocket', 'polling'],
 });
@@ -46,12 +58,6 @@ io.on('connection', (socket) => {
         console.error('Socket error:', error);
     });
 });
-app.use(express_1.default.json());
-app.use((0, cookie_parser_1.default)());
-app.use((0, cors_1.default)({
-    origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
-    credentials: true,
-}));
 // App Routes
 app.use('/api', routes_1.default);
 app.get('/', (_, res) => {
