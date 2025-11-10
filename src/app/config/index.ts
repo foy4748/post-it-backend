@@ -10,6 +10,8 @@ export default {
   flash_db_secret: process.env.FLUSH_DB_SECRET,
   jwt_access_token: process.env.JWT_ACCESS_TOKEN,
 
+  frontendLink: process.env.FRONT_END_LINK,
+
   // Gemini related
   gemini_key: process.env.GOOGLE_GEMINI_API_KEY,
 
