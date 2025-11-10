@@ -17,7 +17,9 @@ export const ScreatePost = async (
 };
 
 export const SgetPosts = async (threadId: string) => {
-  const result = await Post.find({ thread: threadId }).populate('author');
+  const result = await Post.find({ thread: threadId })
+    .populate('author')
+    .sort({ createdAt: -1 });
   return result;
 };
 

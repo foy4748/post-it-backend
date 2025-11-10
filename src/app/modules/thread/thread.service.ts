@@ -26,7 +26,9 @@ export const ScreateThread = async (
 };
 
 export const SgetThreads = async (query: TThreadQuery) => {
-  const threads = await Thread.find(query).populate(['author', 'category']);
+  const threads = await Thread.find(query)
+    .populate(['author', 'category'])
+    .sort({ createdAt: -1 });
   return threads;
 };
 
