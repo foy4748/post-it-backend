@@ -22,7 +22,9 @@ export const SgetComments = async (postId: string) => {
   const result = await Comment.find({
     post: postId,
     parentComment: null,
-  }).populate('user');
+  })
+    .populate('user')
+    .sort({ createdAt: -1 });
 
   return result;
 };
@@ -31,9 +33,9 @@ export const SgetNestedComments = async (
   postId: string,
   parentComment: string,
 ) => {
-  const result = await Comment.find({ post: postId, parentComment }).populate(
-    'user',
-  );
+  const result = await Comment.find({ post: postId, parentComment })
+    .populate('user')
+    .sort({ createdAt: -1 });
 
   return result;
 };

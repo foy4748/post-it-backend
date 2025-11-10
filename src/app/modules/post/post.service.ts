@@ -22,10 +22,7 @@ export const SgetPosts = async (threadId: string) => {
 };
 
 export const SgetSinglePost = async (postId: string) => {
-  const post = await Post.findOne({ _id: postId }).populate([
-    'author',
-    'category',
-  ]);
+  const post = await Post.findOne({ _id: postId }).populate(['author']);
   return post;
 };
 
